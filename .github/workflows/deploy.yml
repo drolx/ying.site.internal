@@ -12,9 +12,7 @@ permissions:
 
 env:
   PROJECT_SRC: src/apps/app.internal
-  APP_SRC: src/apps/app.internal
   BUILD_FOLDER: src/apps/app.internal/.output/public
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -24,10 +22,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          branch: 'main'
-          submodule: false
+          ref: main
           repository: drolx/ying
-          token: ${{ github.token }}
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: src
 
       - name: setup bun
@@ -44,7 +42,6 @@ jobs:
       - run: |
           cd $PROJECT_SRC
           bun install
-          cd $APP_SRC
           bun generate
 
       - name: Init new repo in $BUILD_FOLDER and commit generated files
