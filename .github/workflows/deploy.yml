@@ -12,6 +12,7 @@ permissions:
 
 env:
   PROJECT_SRC: src/apps/app.internal
+  APP_SRC: src/apps/app.internal
   BUILD_FOLDER: src/apps/app.internal/.output/public
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -43,6 +44,7 @@ jobs:
       - run: |
           cd $PROJECT_SRC
           bun install
+          cd $APP_SRC
           bun generate
 
       - name: Init new repo in $BUILD_FOLDER and commit generated files
