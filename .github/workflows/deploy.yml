@@ -5,14 +5,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: write
   pages: write
   repository-projects: write
 
 env:
-  PROJECT_SRC: src/apps/app.internal
-  BUILD_FOLDER: src/apps/app.internal/.output/public
+  PROJECT_SRC: apps/app.internal
+  BUILD_FOLDER: apps/app.internal/.output/public
 
 jobs:
   build:
@@ -25,8 +24,8 @@ jobs:
           ref: main
           repository: drolx/ying
           submodules: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: src
+          persist-credentials: false
+          ssh-key: ${{ secrets.YING_PRIVATE_KEY }}
 
       - name: setup bun
         uses: oven-sh/setup-bun@v2
@@ -40,8 +39,8 @@ jobs:
           cache: 'bun'
 
       - run: |
-          cd $PROJECT_SRC
           bun install
+          cd $PROJECT_SRC
           bun generate
 
       - name: Init new repo in $BUILD_FOLDER and commit generated files
