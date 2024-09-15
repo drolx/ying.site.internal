@@ -32,12 +32,6 @@ jobs:
         with:
           bun-version: "latest"
 
-      - name: Generate static Nuxt 3 files
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'bun'
-
       - run: |
           bun install
           cd $PROJECT_SRC
