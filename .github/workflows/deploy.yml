@@ -10,8 +10,8 @@ permissions:
   repository-projects: write
 
 env:
-  PROJECT_SRC: apps/app.internal
-  BUILD_FOLDER: apps/app.internal/.output/public
+  PROJECT_SRC: internal
+  BUILD_FOLDER: internal/.output/public
 
 jobs:
   build:
